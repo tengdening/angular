@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>iCloud提醒事项</title>
+</head>
+<link rel="stylesheet" href="css/index.css">
+<body ng-controller="ctrl">
+	<div class="zz" ng-click="flags1=false" ng-show="flags1"></div>
+	<ul class="left">
+		<li>
+			<b></b>
+			<i ng-click="odd()"></i>
+		</li>
+		<li>
+			<div class="ico ico-1">
+				
+			</div>
+			<div class="leftName">
+				已计划
+			</div>
+		</li>
+		<li ng-repeat="v in data" ng-click="say($index)" ng-style="{background:$index==index?'#2D2D2B':''}">
+			<div class="ico">
+				<span class="ico-2" ng-style="{background:v.colors}"></span>
+			</div>
+			<div class="leftName">
+				{{v.title}}
+			</div>
+			<div class="bottom-border"></div>
+		</li>
+	</ul>
+	<div class="right">
+		<div>
+			<div class="right-lee">
+				<i></i>
+				<input type="text" placeholder="搜索所有提醒">
+			</div>
+			<div class="right-ri">
+				123
+			</div>
+		</div>
+		<div>
+			<p class="title"ng-style="{color:data[index].colors}">{{data[index].title}}</p>
+			<p class="btn2" ng-style="{color:data[index].colors}"  ng-click="flags1=true">
+				选项
+				<div class="tanzi" ng-show="flags1">
+					<input type="text" ng-model="inputbl" ng-style="{color:yanse,fontSize:'20px'}">
+					<p>列表颜色</p>
+					<div class="colors">
+						<div class="yanse" 
+						ng-repeat="v in cols1" 
+						ng-style="{backgroundColor:v,borderColor:v==yanse?v:''}"
+						ng-click="colorbtn(v)"
+						></div>
+					</div>
+					<div class="btn-box">
+						<div class="del" ng-click="del()">删除</div>
+						<div class="quxiao">
+							<div class="quxiao1" ng-click="flags1=false">取消</div>
+							<span style="float: left;">|</span>
+							<div class="quxiao2" ng-click="queding()">完成</div>
+						</div>
+					</div>
+				</div>
+			</p>
+			<div class="bottom-border2"></div>
+		</div>
+		<ul class="old-ul">
+			<li class="old-ul-li">
+				<p class="old-title"><i></i>已完成:<span>{{(data[index].todo|filter:{state:false}).length}}</span>项目</p>
+				<p class="old-btn">清理已完成事项</p>
+				<div class="bottom-border2"></div>
+			</li>
+			<li>
+				<p class="date">2017年2月22日星期三</p>
+				<div class="bottom-border2"></div>
+			</li>
+			<li ng-repeat="i in data[index].todo|filter:{state:false}">
+				<div class="icon11" ng-style="{backgroundColor:data[index].colors,borderColor:data[index].colors}" ng-click="i.state=true"></div>
+				<div class="icon11-title" contenteditable="true" ng-blur="genggai($event,i)">
+					{{i.t}}
+					<div class="bottom-border2"></div>
+				</div>
+			</li>
+		</ul>
+		<ul class="new-ul">
+			<li ng-repeat="c in data[index].todo|filter:{state:true}">
+				<div class="icon12" ng-style="{borderColor:data[index].colors}" ng-click="c.state=false"></div>
+				<div class="icon12-title" contenteditable="true" ng-blur="genggai($event,c)">
+					{{c.t}}
+					<div class="bottom-border2"></div>
+				</div>
+			</li>
+			<li>
+				<div class="icon12-title" ng-click="newli()">
+					新项目...
+					<div class="bottom-border2"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script src="js/angular.js"></script>
+<script src="js/index.js"></script>
+</html>
